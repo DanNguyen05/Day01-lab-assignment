@@ -1,6 +1,12 @@
 """
 Day 1 - LLM API Foundation
 AICB-P1: AI Practical Competency Program, Phase 1
+
+Instructions:
+    1. Fill in every section marked with TODO.
+    2. Do NOT change function signatures.
+    3. Copy this file to solution/solution.py when done.
+    4. Run: pytest tests/ -v
 """
 
 import os
@@ -26,7 +32,7 @@ def call_openai(
     max_tokens: int = 256,
 ) -> tuple[str, float]:
     """
-    Call the OpenAI Chat Completions API and return response text with latency.
+    Call the OpenAI Chat Completions API and return the response text + latency.
     """
     from openai import OpenAI
 
@@ -53,7 +59,7 @@ def call_openai_mini(
     max_tokens: int = 256,
 ) -> tuple[str, float]:
     """
-    Call the same helper using gpt-4o-mini.
+    Call the OpenAI API using gpt-4o-mini.
     """
     return call_openai(
         prompt=prompt,
@@ -66,7 +72,7 @@ def call_openai_mini(
 
 def compare_models(prompt: str) -> dict:
     """
-    Compare GPT-4o and GPT-4o-mini on one prompt.
+    Call GPT-4o and GPT-4o-mini with the same prompt and compare them.
     """
     gpt4o_response, gpt4o_latency = call_openai(prompt)
     mini_response, mini_latency = call_openai_mini(prompt)
@@ -135,7 +141,7 @@ def retry_with_backoff(
     base_delay: float = 0.1,
 ) -> Any:
     """
-    Call fn(), retrying failures with exponential backoff.
+    Call fn(). If it raises an exception, retry with exponential backoff.
     """
     for attempt in range(max_retries):
         try:
@@ -150,7 +156,7 @@ def retry_with_backoff(
 
 def batch_compare(prompts: list[str]) -> list[dict]:
     """
-    Run compare_models for every prompt and attach the original prompt.
+    Run compare_models on each prompt in the list.
     """
     results = []
 
